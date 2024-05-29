@@ -3,7 +3,7 @@ package org.vaadin.example
 import com.github.mvysny.karibudsl.v10.*
 import com.github.mvysny.kaributools.setPrimary
 import com.vaadin.flow.component.Key
-import com.vaadin.flow.component.notification.Notification
+import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.router.Route
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -23,6 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired
  */
 @Route
 class MainView(@Autowired service: GreetService) : KComposite() {
+    val nameField = TextField("Your name") {
+        addClassName("bordered")
+    }
+
     /**
      * Construct a new Vaadin view.
      *
@@ -33,10 +37,7 @@ class MainView(@Autowired service: GreetService) : KComposite() {
         // styles.css.
         verticalLayout(classNames = "centered-content") {
             // Use TextField for standard text input
-            val nameField = textField("Your name") {
-                addClassName("bordered")
-            }
-
+            add(nameField)
             // Button click listeners can be defined as lambda expressions
             button("Say hello") {
                 // Theme variants give you predefined extra styles for components.
@@ -52,5 +53,9 @@ class MainView(@Autowired service: GreetService) : KComposite() {
                 }
             }
         }
+    }
+
+    fun setPlaceholer(string: String) {
+        nameField.placeholder = string
     }
 }
